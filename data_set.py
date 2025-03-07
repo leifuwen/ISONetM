@@ -13,6 +13,9 @@ class ISONetData(dt.Dataset):
     """
 
     def __init__(self, data_path=None, train=True, gray_mode=False):
+        """
+        初始化数据集
+        """
         if data_path is not None:
             self.data_path = Path(data_path)
             if not self.data_path.exists():
@@ -49,6 +52,9 @@ class ISONetData(dt.Dataset):
         return self.len
 
     def __getitem__(self, index: int):
+        """
+        获取单个样本数据
+        """
         # the bug of dataloader of Pytorch in loading h5
         # https://discuss.pytorch.org/t/dataloader-when-num-worker-0-there-is-bug/25643/26
         if self.h5 is None and self.h5_label is None:

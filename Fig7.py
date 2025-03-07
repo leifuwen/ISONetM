@@ -13,8 +13,9 @@ from utils import img_2_patches, normalize
 
 
 def test_model(args):
+    # 初始化模型
     net = ISONet()
-
+    # 设备选择
     if torch.cuda.is_available():
         device = torch.cuda.current_device()
     else:
@@ -28,7 +29,7 @@ def test_model(args):
         net.load_state_dict(torch.load(model_path, map_location=torch.device(device))["net"])
     else:
         net.load_state_dict(torch.load(model_path, map_location=torch.device(device)))
-
+    # 图像预处理流程
     # Load the test image,BGR -> RGB
     img = cv2.imread(args.pic_path)[:, :, ::-1]
     # HWC ->CHW
@@ -59,7 +60,7 @@ def test_model(args):
     print(f"Running time:{(end_time-start_time):.2f}s")
     # (2) of the paper
     print(f"Estimated ISO metric: {np.median(y):.3f}")
-    # plot
+    # 可视化热力图
     res = np.array(res)
     plt.imshow(res.reshape([Hb, Wb]))
     plt.colorbar()

@@ -54,7 +54,7 @@ def gen_data(args):
         train_h5_label = 'train_rgb_label.h5'
         val_h5 = 'val_rgb.h5'
         val_h5_label = 'val_rgb_label.h5'
-
+    # 生成训练集
     if train:
         # load the training img and generate the dataset
         f_train = h5py.File(save_path.joinpath(train_h5), 'w')
@@ -102,6 +102,7 @@ def gen_data(args):
         f_train.close()
         f_train_label.close()
         print(f"the number of training images:{train_num}")
+    # 生成验证集
     if test:
         # Gen Test Data
         f_test = h5py.File(save_path.joinpath(val_h5), 'w')

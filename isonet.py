@@ -4,6 +4,9 @@ import torch.nn.functional as F
 
 
 class ISONet(nn.Module):
+    """
+    卷积神经网络模型
+    """
     def __init__(self):
         super().__init__()
         # in 3 out 32
@@ -20,6 +23,9 @@ class ISONet(nn.Module):
         self.fc3 = nn.Linear(8, 1)
 
     def num_flat_features(self, x):
+        """
+        计算特征维度
+        """
         size = x.size()[1:]
         num_features = 1
         for s in size:

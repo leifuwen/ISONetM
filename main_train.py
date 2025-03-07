@@ -57,7 +57,7 @@ def main_train(args):
     else:
         print("cuda unavailable!")
         cuda = False
-
+    # 模型初始化
     net = ISONet()
     criterion = nn.MSELoss(reduction="mean")
     optimizer = optim.Adam(net.parameters(), lr=lr)
@@ -94,6 +94,7 @@ def main_train(args):
         best_test_loss = 0
 
     record = 0
+    # 训练主循环
     for epoch in range(start_epoch, total_epoch):
         print(f"start from [{epoch}] epoch...")
         net.train()
@@ -155,7 +156,7 @@ def main_train(args):
         scheduler.step()
 
         writer.add_scalar("Test/Loss", test_loss, epoch)
-
+        # 构建检查点字典
         checkpoint = {
             "net": net.state_dict(),
             "optimizer": optimizer.state_dict(),
@@ -163,7 +164,7 @@ def main_train(args):
             "scheduler": scheduler.state_dict(),
             "best_test_loss": best_test_loss
         }
-
+        # 模型保存
         if best_test_loss == 0:
             print("Save the model...")
             torch.save(net.state_dict(), model_path.joinpath(best_model_name))
